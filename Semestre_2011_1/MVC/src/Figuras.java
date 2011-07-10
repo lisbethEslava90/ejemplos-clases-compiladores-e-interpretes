@@ -3,24 +3,22 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
-import javax.swing.JFrame;
-import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
-
+import javax.swing.*;
 import vista.Vista;
 import modelo.Modelo;
-
 import controlador.Controlador;
 
 
-
 public class Figuras {
-	
-	public static void main(String[] args) {
-		try{
-			final JFrame frame = new JFrame();
-			frame.setTitle("Ejemplo Modelo Vista Controlador (MVC) Compíladores e Interpretes UNET");
+
+    static  JFrame frame;
+
+    public Figuras (){
+
+                        frame = new JFrame();
+			frame.setTitle("Modelador Diagramas de Tombstone");
 			//Set the window initial Size & default close operation
+                        
 			frame.setVisible(true);
 			Dimension fullscreen = Toolkit.getDefaultToolkit().getScreenSize();
 			fullscreen.width=fullscreen.width-400;
@@ -34,21 +32,28 @@ public class Figuras {
 			Vista vista = new Vista(new Dimension(1000,800),modelo);
 			final Controlador controlador = new Controlador(modelo,vista);
 			vista.controlador=controlador; //Lo registro para su uso, deberia ser un metodo pero por simplificacion
+                        frame.setJMenuBar(controlador.barra_menu());
 			JScrollPane ModelScroll = new JScrollPane(controlador.getVista(), ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 			guiobjects.add(ModelScroll);
 			/*ModelScroll.repaint();
 			frame.repaint();*/
 			frame.pack();
+    }
+
+    public static void main(String[] args) {
+		try{
+			new Figuras();
 		}catch (RuntimeException e){
 			exitApplication();
 		}
 
 	}
 
-
 	public static void exitApplication() {
 		   System.out.println("Saliendo Adios...");
 		   System.exit(0);
         }
+
+
 
 }
