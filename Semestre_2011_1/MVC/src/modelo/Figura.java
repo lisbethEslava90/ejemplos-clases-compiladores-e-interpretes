@@ -7,7 +7,7 @@ public abstract class Figura {
 	protected Point posicion;
 	protected boolean seleccionada;
 	public abstract boolean dentroFigura(Point p);
-	public abstract void dibujar(Graphics g);	
+	public abstract void dibujar(Graphics g);
 	
 	public void setPosicion(Point posicion)
 	{
