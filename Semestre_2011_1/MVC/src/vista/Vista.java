@@ -12,6 +12,8 @@ import java.awt.event.*;
 import javax.swing.*;
 import modelo.T;
 import modelo.interprete;
+import modelo.maquina;
+import modelo.programa;
 
 
 public class Vista extends JPanel{
@@ -27,7 +29,7 @@ public class Vista extends JPanel{
         private JTextField fuente, objeto, escrito;
         private JButton aceptar;
         private String de="", para="", en="";
-        private int opcion = 0;
+        private int opcion = 0, posx = 0, posy = 0;
         private boolean band = false, bcomp = false, bpro = false, bmaq = false, binter = false, bvir =false;
         private Timer timer;
 	
@@ -56,8 +58,7 @@ public class Vista extends JPanel{
                       }
                       else if(band == true && bpro == true)
                       {
-                          System.out.print("item2 - programa");
-                        //anyadirFigura(new programa(lugar,200,de,para,en));
+                        controlador.anyadirFigura(new programa(lugar,70,de,para));
                         band = false;
                         bpro = false;
                         datos.setVisible(false);
@@ -67,8 +68,7 @@ public class Vista extends JPanel{
                       }
                       else if(band == true && bmaq == true)
                       {
-                       System.out.print("item3 - maquina");
-                        //anyadirFigura(new maquina(lugar,200,de,para,en));
+                        controlador.anyadirFigura(new maquina(lugar,80,de,para,false));
                         band = false;
                         bmaq = false;
                         datos.setVisible(false);
@@ -78,7 +78,6 @@ public class Vista extends JPanel{
                       }
                       else if(band == true && binter == true)
                       {
-                       System.out.print("item4 - interprete");
                         controlador.anyadirFigura(new interprete(lugar, 80, de, para));
                         band = false;
                         binter = false;
@@ -89,8 +88,7 @@ public class Vista extends JPanel{
                       }
                       else if(band == true && bvir == true)
                       {
-                       System.out.print("item5 - maq virtual");
-                        //anyadirFigura(new interprete(lugar, 80, "de", "para", "en2"));
+                        controlador.anyadirFigura(new maquina(lugar, 80, de, para,true));
                         band = false;
                         bvir = false;
                         datos.setVisible(false);
@@ -220,6 +218,7 @@ public class Vista extends JPanel{
                         lobjeto.setVisible(true);
                         lescribe.setVisible(false);
                         escrito.setVisible(false);
+                        objeto.setVisible(true);
                         opcion = 0;
                         break;
 
