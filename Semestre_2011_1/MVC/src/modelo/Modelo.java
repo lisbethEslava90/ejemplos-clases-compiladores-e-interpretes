@@ -22,6 +22,9 @@ public class Modelo {
 	public void anyadirFigura(Figura f){
 		listaFiguras.add(f);
 	}
+        public void eliminarFigura(Figura f){
+                listaFiguras.remove(f);
+        }
 	
 	public Figura getFiguraEn(Point p){
 		for (Figura elemento : getListado()) {

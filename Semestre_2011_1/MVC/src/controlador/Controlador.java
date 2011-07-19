@@ -45,17 +45,21 @@ public class Controlador {
 	public void anyadirFigura(Figura f){
 		modelo.anyadirFigura(f);
 	}
+        
+        public void eliminarFigura(Figura f){
+                modelo.eliminarFigura(f);
+        }
 	
 	public Figura getFiguraEn(Point p){
 		return modelo.getFiguraEn(p);
 	}
 
 	public void eVmousePressed(MouseEvent ev) {
-          //  lugar = ev.getPoint();
 		if(SwingUtilities.isLeftMouseButton(ev)){ 			//Click boton izquierdo selecciona figura
 			seleccionada=this.getFiguraEn(ev.getPoint());
-		}else if(SwingUtilities.isRightMouseButton(ev)){		//click boton izquierdo a�ade figura tipo cuadrado
-			
+		}else if(SwingUtilities.isRightMouseButton(ev)){		//click boton derecho elimina la figura seleccionada
+			seleccionada = this.getFiguraEn(ev.getPoint());
+                        this.eliminarFigura(seleccionada);
 		}else if(SwingUtilities.isMiddleMouseButton(ev))//click boton medio a�ade figura tipo circulo
 		{
 			

@@ -238,7 +238,6 @@ public class Vista extends JPanel{
             @Override
           public void mouseClicked(MouseEvent e)
           {
-
               de = fuente.getText();
               para = objeto.getText();
               en = escrito.getText();
