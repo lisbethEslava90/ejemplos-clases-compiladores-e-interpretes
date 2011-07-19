@@ -13,7 +13,7 @@ public class Controlador {
 	
 	private Modelo modelo;
 	private Vista vista;
-	private Figura seleccionada;
+	private Figura seleccionada, agregada;
         
 	
 	public Controlador(Modelo modelo, Vista vista){
@@ -35,7 +35,7 @@ public class Controlador {
 	}
 
 	public void cambiarPosicion(Figura f, Point p){
-		f.setPosicion(p);
+            f.setPosicion(p);
 	}
 	
 	public Vista getVista(){
@@ -44,6 +44,7 @@ public class Controlador {
 	
 	public void anyadirFigura(Figura f){
 		modelo.anyadirFigura(f);
+                agregada=f;
 	}
         
         public void eliminarFigura(Figura f){
@@ -52,6 +53,16 @@ public class Controlador {
 	
 	public Figura getFiguraEn(Point p){
 		return modelo.getFiguraEn(p);
+	}
+
+        public void eVmouseClicked(MouseEvent ev) {
+            if(agregada!=null)
+            {
+                agregada.setPosicion(ev.getPoint());
+                agregada.visible=true;
+                agregada=null;
+            }
+            vista.repaint();
 	}
 
 	public void eVmousePressed(MouseEvent ev) {
