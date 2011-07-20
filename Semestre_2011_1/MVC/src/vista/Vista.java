@@ -9,11 +9,14 @@ import modelo.Figura;
 import controlador.Controlador;
 import java.awt.Point;
 import java.awt.event.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 import modelo.T;
 import modelo.interprete;
 import modelo.maquina;
 import modelo.programa;
+
 
 
 public class Vista extends JPanel{
@@ -32,6 +35,7 @@ public class Vista extends JPanel{
         private int opcion = 0, posx = 0, posy = 0;
         private boolean band = false, bcomp = false, bpro = false, bmaq = false, binter = false, bvir =false;
         private Timer timer;
+       
 	
 	public Vista(Dimension size, Modelo modelo){
 		super();
@@ -48,6 +52,7 @@ public class Vista extends JPanel{
                     {
 
                       if(band == true && bcomp == true){
+                        
                         controlador.anyadirFigura(new T(lugar,200,de,para,en));
                         band = false;
                         bcomp = false;
@@ -110,7 +115,8 @@ public class Vista extends JPanel{
 
 		//Mejorable al 1000% solo por simplificacion realizado de esta forma
 		MouseController mouseControl = new MouseController() {
-			public void mouseClicked(MouseEvent event) {}
+			public void mouseClicked(MouseEvent event) {
+                            eVmouseClicked(event); }
 			public void mouseEntered(MouseEvent event) {}
 			public void mouseExited(MouseEvent event) {}
 			public void mouseMoved(MouseEvent event) {}
@@ -134,6 +140,14 @@ public class Vista extends JPanel{
 	private void pintarTodo(Graphics2D g){
 		for (Figura elemento : modelo.getListado()) {
 			elemento.dibujar(g);
+		}
+	}
+
+        public void eVmouseClicked(MouseEvent ev) {
+		if(controlador!=null)
+		{
+			lugar=ev.getPoint();
+                        controlador.eVmouseClicked(ev);
 		}
 	}
 
@@ -238,7 +252,6 @@ public class Vista extends JPanel{
             @Override
           public void mouseClicked(MouseEvent e)
           {
-
               de = fuente.getText();
               para = objeto.getText();
               en = escrito.getText();
@@ -318,6 +331,7 @@ public class Vista extends JPanel{
 
         }
      }
+
 }
 
 
@@ -333,3 +347,4 @@ class MouseController implements MouseListener, MouseMotionListener {
 	public void mouseDragged(MouseEvent event) {}
 	public void mouseMoved(MouseEvent event) {}
 }
+
