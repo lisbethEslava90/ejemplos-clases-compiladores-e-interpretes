@@ -6,7 +6,11 @@ import java.awt.Point;
 
 public class maquina extends Figura
 {
+<<<<<<< HEAD
 
+=======
+	//modificacion
+>>>>>>> 53909b27ee9796dbb3d28b014eccee01de409a35
     private int ancho;
     private int[] xs, ys;
     private String de="", para="";
@@ -37,8 +41,11 @@ public class maquina extends Figura
 
 	public void dibujar(Graphics g)
 	{
+<<<<<<< HEAD
             if(visible)
             {
+=======
+>>>>>>> 53909b27ee9796dbb3d28b014eccee01de409a35
                 this.xs[0] = posicion.x;
                 this.xs[1] = posicion.x;
                 this.xs[2] = posicion.x + (this.ancho/2);
@@ -69,7 +76,10 @@ public class maquina extends Figura
 			g.setColor(Color.RED);
 			g.drawRect(this.getX()+7, this.getY()+7, this.getAncho()-20, this.getAncho()-20);  
 		}*/
+<<<<<<< HEAD
             }
+=======
+>>>>>>> 53909b27ee9796dbb3d28b014eccee01de409a35
 	}
 }
 

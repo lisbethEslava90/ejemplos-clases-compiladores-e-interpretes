@@ -38,8 +38,11 @@ public class programa extends Figura {
 
 	@Override
 	public void dibujar(Graphics g) {
+<<<<<<< HEAD
             if(visible)
             {
+=======
+>>>>>>> 53909b27ee9796dbb3d28b014eccee01de409a35
 		g.setColor(Color.ORANGE);
 		g.fillOval(this.getX(), this.getY(), this.getRadio(), this.getRadio());
                 g.fillRect(this.getX()+10, this.getY()+50, 50, 50);
@@ -51,6 +54,9 @@ public class programa extends Figura {
 			g.drawOval(this.getX()+7, this.getY()+7, this.getRadio()-15, this.getRadio()-15);
                         g.drawRect(this.getX()+17, this.getY()+57, 40, 40);
 		}
+<<<<<<< HEAD
             }
+=======
+>>>>>>> 53909b27ee9796dbb3d28b014eccee01de409a35
 	}
 }
