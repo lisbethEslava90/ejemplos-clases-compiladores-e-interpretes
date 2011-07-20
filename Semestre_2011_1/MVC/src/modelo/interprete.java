@@ -6,7 +6,7 @@ import java.awt.Point;
 
 public class interprete extends Figura
 {
-
+//linea modificada
     private int ancho;
     private String de="", para="";
 	public interprete(Point posicion, int ancho, String de, String para){
