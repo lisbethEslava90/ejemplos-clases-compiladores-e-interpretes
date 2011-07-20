@@ -1,5 +1,7 @@
 package controlador;
 
+import com.db4o.Db4oEmbedded;
+
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.util.ListIterator;
@@ -93,5 +95,16 @@ public class Controlador {
 			seleccionada=null;
 		}
 	}
-
+//        Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "prueba");
+//	        try {
+//
+//	            db.store(modelo);
+//
+//	        } finally {
+//	            db.close();
+//	        }
+//
+//	        // accessDb4o
+//
+//
 }
