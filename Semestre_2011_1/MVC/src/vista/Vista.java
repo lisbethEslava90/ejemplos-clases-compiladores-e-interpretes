@@ -19,6 +19,7 @@ import modelo.programa;
 
 public class Vista extends JPanel {
 
+<<<<<<< HEAD
     static final long serialVersionUID = 0L;
     private Modelo modelo;
     public Controlador controlador;  //IMPORTANTE DEBE SER REGISTRADO O TODO FALLA
@@ -34,11 +35,231 @@ public class Vista extends JPanel {
     private int opcion = 0, posx = 0, posy = 0;
     private boolean band = false, bcomp = false, bpro = false, bmaq = false, binter = false, bvir = false;
     private Timer timer;
+=======
+
+public class Vista extends JPanel{
+	static final long serialVersionUID = 0L;
+	private Modelo modelo;
+	public Controlador controlador;  //IMPORTANTE DEBE SER REGISTRADO O TODO FALLA
+        private JMenuBar barra;
+        private JMenu agregar, diagrama;
+        private JMenuItem item1, item2, item3, item4, item5, item6, item7;
+        private Point lugar;
+        private JFrame datos;
+        private JLabel lfuente, lobjeto, lescribe;
+        private JTextField fuente, objeto, escrito;
+        private JButton aceptar;
+        private String de="", para="", en="";
+        private int opcion = 0, posx = 0, posy = 0;
+        private boolean band = false, bcomp = false, bpro = false, bmaq = false, binter = false, bvir =false;
+        private Timer timer;
+       
+	
+	public Vista(Dimension size, Modelo modelo){
+		super();
+		this.modelo=modelo;
+		
+		setPreferredSize(size);
+		setBackground(Color.white);
+		setFocusable(true);
+
+                lugar = new Point(100,100);
+                timer = new Timer (1, new ActionListener ()
+                {
+                    public void actionPerformed(ActionEvent e)
+                    {
+
+                      if(band == true && bcomp == true){
+                        
+                        controlador.anyadirFigura(new T(lugar,200,de,para,en));
+                        band = false;
+                        bcomp = false;
+                        datos.setVisible(false);
+                        fuente.setText("");
+                        objeto.setText("");
+                        escrito.setText("");
+                      }
+                      else if(band == true && bpro == true)
+                      {
+                        controlador.anyadirFigura(new programa(lugar,70,de,para));
+                        band = false;
+                        bpro = false;
+                        datos.setVisible(false);
+                        fuente.setText("");
+                        objeto.setText("");
+                        escrito.setText("");
+                      }
+                      else if(band == true && bmaq == true)
+                      {
+                        controlador.anyadirFigura(new maquina(lugar,80,de,para,false));
+                        band = false;
+                        bmaq = false;
+                        datos.setVisible(false);
+                        fuente.setText("");
+                        objeto.setText("");
+                        escrito.setText("");
+                      }
+                      else if(band == true && binter == true)
+                      {
+                        controlador.anyadirFigura(new interprete(lugar, 80, de, para));
+                        band = false;
+                        binter = false;
+                        datos.setVisible(false);
+                        fuente.setText("");
+                        objeto.setText("");
+                        escrito.setText("");
+                      }
+                      else if(band == true && bvir == true)
+                      {
+                        controlador.anyadirFigura(new maquina(lugar, 80, de, para,true));
+                        band = false;
+                        bvir = false;
+                        datos.setVisible(false);
+                        fuente.setText("");
+                        objeto.setText("");
+                        escrito.setText("");
+                      }
+
+                     }
+                });
+                lfuente = new JLabel("Lenguaje Fuente:");
+                lobjeto = new JLabel("Lenguaje Objeto:");
+                lescribe = new JLabel("Escrito en:");
+                fuente = new JTextField();
+                objeto = new JTextField();
+                escrito = new JTextField();
+                aceptar = new JButton("Aceptar");
+                timer.start();
+
+		//Mejorable al 1000% solo por simplificacion realizado de esta forma
+		MouseController mouseControl = new MouseController() {
+			public void mouseClicked(MouseEvent event) {
+                            eVmouseClicked(event); }
+			public void mouseEntered(MouseEvent event) {}
+			public void mouseExited(MouseEvent event) {}
+			public void mouseMoved(MouseEvent event) {}
+			public void mousePressed(MouseEvent event) {
+			    eVmousePressed(event);	}
+			public void mouseReleased(MouseEvent event) {
+				eVmouseReleased(event);	}
+			public void mouseDragged(MouseEvent event) {
+				eVmouseDragged(event);	}
+		};
+		this.addMouseListener(mouseControl);
+		this.addMouseMotionListener(mouseControl);
+	}
+	
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		Graphics2D g2 = (Graphics2D) g;
+		pintarTodo(g2);
+	}
+	
+	private void pintarTodo(Graphics2D g){
+		for (Figura elemento : modelo.getListado()) {
+			elemento.dibujar(g);
+		}
+	}
+
+        public void eVmouseClicked(MouseEvent ev) {
+		if(controlador!=null)
+		{
+			lugar=ev.getPoint();
+                        controlador.eVmouseClicked(ev);
+		}
+	}
+
+	public void eVmousePressed(MouseEvent ev) {
+		if(controlador!=null)
+		{
+			controlador.eVmousePressed(ev);
+		}
+	}
+	
+	public void eVmouseDragged(MouseEvent ev) {
+		if(controlador!=null)
+		{
+			controlador.eVmouseDragged(ev);
+		}
+	}
+	
+	public void eVmouseReleased (MouseEvent ev) {
+		if(controlador!=null)
+		{
+			controlador.eVmouseReleased(ev);
+		}
+	}
+
+        public void datos(){
+
+            datos = new JFrame("Datos");
+
+            datos.setBounds(100, 100, 300, 200);
+            datos.setLayout(null);
+            datos.setResizable(false);
+            datos.setDefaultCloseOperation(datos.getDefaultCloseOperation());
+            datos.add(lfuente);
+            datos.add(lobjeto);
+            datos.add(lescribe);
+            datos.add(fuente);
+            datos.add(objeto);
+            datos.add(escrito);
+            datos.add(aceptar);
+
+
+            switch (opcion)
+            {
+                case 1:
+                        lfuente.setText("Lenguaje Fuente:");
+                        lobjeto.setText("Lenguaje Objeto");
+                        lescribe.setText("Escrito en:");
+                        lobjeto.setVisible(true);
+                        objeto.setVisible(true);
+                        lescribe.setVisible(true);
+                        escrito.setVisible(true);
+                        opcion = 0;
+                        break;
+                case 2:
+                        lfuente.setText("Programa: ");
+                        lobjeto.setText("Escrito en: ");
+                        lescribe.setVisible(false);
+                        escrito.setVisible(false);
+                        opcion = 0;
+                        break;
+
+                case 3:
+                        lfuente.setText("Plataforma:");
+                        lobjeto.setVisible(false);
+                        lescribe.setVisible(false);
+                        escrito.setVisible(false);
+                        objeto.setVisible(false);
+                        opcion = 0;
+                        break;
+                case 4:
+                        lfuente.setText("Interprete de:");
+                        lobjeto.setText("Escrito en:");
+                        lobjeto.setVisible(true);
+                        lescribe.setVisible(false);
+                        objeto.setVisible(true);
+                        escrito.setVisible(false);
+                        opcion = 0;
+                        break;
+                case 5:
+                        lfuente.setText("Interprete de:");
+                        lobjeto.setText("Ejecutado en:");
+                        lobjeto.setVisible(true);
+                        lescribe.setVisible(false);
+                        escrito.setVisible(false);
+                        objeto.setVisible(true);
+                        opcion = 0;
+                        break;
+>>>>>>> 5f1365bd2f6537184919635dfeea5f3ac9635b3c
 
     public Vista(Dimension size, Modelo modelo) {
         super();
         this.modelo = modelo;
 
+<<<<<<< HEAD
         setPreferredSize(size);
         setBackground(Color.white);
         setFocusable(true);
@@ -49,6 +270,28 @@ public class Vista extends JPanel {
             public void actionPerformed(ActionEvent e) {
 
                 if (band == true && bcomp == true) {
+=======
+            datos.setVisible(true);
+            lfuente.setBounds(5, 5, 120, 30);
+            lobjeto.setBounds(5, 50, 120, 30);
+            lescribe.setBounds(5, 100, 80, 30);
+            fuente.setBounds(115, 10, 100, 30);
+            objeto.setBounds(115, 50, 100, 30);
+            escrito.setBounds(115, 90, 100, 30);
+            aceptar.setBounds(120, 130, 80, 30);
+
+            aceptar.addMouseListener( new MouseAdapter()
+        {
+            @Override
+          public void mouseClicked(MouseEvent e)
+          {
+              de = fuente.getText();
+              para = objeto.getText();
+              en = escrito.getText();
+              band = true;
+              repaint();
+          }
+>>>>>>> 5f1365bd2f6537184919635dfeea5f3ac9635b3c
 
                     controlador.anyadirFigura(new T(lugar, 200, de, para, en));
                     band = false;
@@ -233,6 +476,12 @@ public class Vista extends JPanel {
                 opcion = 0;
                 break;
         }
+<<<<<<< HEAD
+=======
+     }
+
+}
+>>>>>>> 5f1365bd2f6537184919635dfeea5f3ac9635b3c
 
         datos.setVisible(true);
         lfuente.setBounds(5, 5, 120, 30);
