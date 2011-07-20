@@ -8,7 +8,8 @@ public class interprete extends Figura
 {
 
     private int ancho;
-    private String de="", para="";
+    public  String de="", para="";
+        public interprete(){}
 	public interprete(Point posicion, int ancho, String de, String para){
 		this.posicion=posicion;
 		this.ancho=ancho;
@@ -32,8 +33,6 @@ public class interprete extends Figura
 
 	public void dibujar(Graphics g)
 	{
-            if(visible)
-            {
 		g.setColor(Color.GRAY);
 		g.fillRect(this.getX(), this.getY(), this.getAncho(), this.getAncho());
                 g.setColor(Color.BLACK);
@@ -44,10 +43,17 @@ public class interprete extends Figura
 			g.setColor(Color.RED);
 			g.drawRect(this.getX()+7, this.getY()+7, this.getAncho()-20, this.getAncho()-20);  
 		}
-            }
 	}
         public void eliminar(Graphics g)
         {
             g.dispose();
         }
+
+    @Override
+    public void pegar(Figura intersectada) {
+    }
+
+    @Override
+    public void unir(Figura intersectada) {
+    }
 }
