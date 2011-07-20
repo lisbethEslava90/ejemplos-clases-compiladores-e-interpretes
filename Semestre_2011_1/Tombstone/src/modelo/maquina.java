@@ -110,8 +110,8 @@ public class maquina extends Figura
             intersectada.vec[1] == null &&
             this.de.equals(((T) intersectada).en))// tombstom izquierda
         {
-            this.vec[1] = intersectada;
-            intersectada.vec[2] = this;
+            this.vec[0] = intersectada;
+            intersectada.vec[1] = this;
         } 
     }
 }
