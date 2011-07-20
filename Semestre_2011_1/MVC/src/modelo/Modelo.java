@@ -58,4 +58,8 @@ public class Modelo {
             System.out.println(listaFiguras);
 
         }
+
+        public void limpiar(Modelo yy){            
+               listaFiguras.clear();           
+        }
 }

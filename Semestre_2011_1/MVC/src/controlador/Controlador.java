@@ -101,6 +101,8 @@ public class Controlador {
         try {
             modelo.BaseD = JOptionPane.showInputDialog(vista, "Ingrese Nombre del Modelo:");
             base.store(modelo);
+            modelo.limpiar(modelo);
+            vista.repaint();
         } finally {
             base.close();
         }
@@ -111,10 +113,7 @@ public class Controlador {
         ObjectContainer  base1= Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "BaseDatos");
         try {
 
-            ObjectSet<Modelo> lista = base1.query(Modelo.class);
-            for (Modelo m : lista) {
-                System.out.println("MODELO " + m);
-            }
+            ObjectSet<Modelo> lista = base1.query(Modelo.class);            
             Modelo dibu = (Modelo) JOptionPane.showInputDialog(vista, "Mensaje", "Titulo", JOptionPane.INFORMATION_MESSAGE, null, lista.toArray(), lista.get(0));
             if (dibu != null) {
                 modelo.extraer(dibu);

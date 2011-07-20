@@ -24,7 +24,7 @@ public class Vista extends JPanel {
     public Controlador controlador;  //IMPORTANTE DEBE SER REGISTRADO O TODO FALLA
     private JMenuBar barra;
     private JMenu agregar, diagrama;
-    private JMenuItem item1, item2, item3, item4, item5, item6, item7;
+    private JMenuItem item1, item2, item3, item4, item5, item6, item7, item8;
     private Point lugar;
     private JFrame datos;
     private JLabel lfuente, lobjeto, lescribe;
@@ -274,6 +274,8 @@ public class Vista extends JPanel {
         item6.addActionListener(new EventoMenu());
         item7 = new JMenuItem("Cargar Modelo");
         item7.addActionListener(new EventoMenu());
+        item8 = new JMenuItem("Cerrar");
+        item8.addActionListener(new EventoMenu());
         agregar.add(item1);
         agregar.add(item2);
         agregar.add(item3);
@@ -281,6 +283,7 @@ public class Vista extends JPanel {
         agregar.add(item5);
         diagrama.add(item6);
         diagrama.add(item7);
+        diagrama.add(item8);
         barra.add(agregar);
         barra.add(diagrama);
         return barra;
@@ -324,6 +327,10 @@ public class Vista extends JPanel {
             if (evt.getSource() == item7) {
                 opcion = 7;
                 controlador.cargar();
+            }
+            if (evt.getSource() == item8) {
+                opcion = 8;
+                System.exit(0);
             }
         }
     }
