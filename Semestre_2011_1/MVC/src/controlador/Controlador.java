@@ -1,5 +1,9 @@
 package controlador;
 
+import com.db4o.Db4oEmbedded;
+import com.db4o.ObjectContainer;
+import com.db4o.ObjectSet;
+
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.util.ListIterator;
@@ -13,9 +17,7 @@ public class Controlador {
 
     private Modelo modelo;
     private Vista vista;
-    private Figura seleccionada;
-    private Figura intersectada;
-    Point punto;
+    private Figura seleccionada, agregada;
 
     public Controlador(Modelo modelo, Vista vista) {
         this.modelo = modelo;
@@ -35,30 +37,8 @@ public class Controlador {
         return null;
     }
 
-    private Figura getFiguraEn2(Point posicion, Figura yo) {
-        ListIterator<Figura> it = modelo.getListado().listIterator();
-        while (it.hasNext()) {
-            Figura tmp = it.next();
-            if (!tmp.equals(yo) && tmp.dentroFigura(posicion)) {
-                tmp.setSeleccionada(true);
-                return tmp;
-            }
-        }
-        return null;
-    }
-
-//	public void cambiarPosicion(Figura f, Point p){
-//		f.setPosicion(p);
-//	}
-    public void desplazar(Figura f, Point p) {
-        Point desplazamiento = new Point();
-        desplazamiento.x = p.x - punto.x;
-        desplazamiento.y = p.y - punto.y;
-        punto = new Point();
-        punto.x = p.x;
-        punto.y = p.y;
-        f.desplazar(desplazamiento);
-        f.yasemovieron();
+    public void cambiarPosicion(Figura f, Point p) {
+        f.setPosicion(p);
     }
 
     public Vista getVista() {
@@ -67,6 +47,7 @@ public class Controlador {
 
     public void anyadirFigura(Figura f) {
         modelo.anyadirFigura(f);
+        agregada = f;
     }
 
     public void eliminarFigura(Figura f) {
@@ -75,6 +56,15 @@ public class Controlador {
 
     public Figura getFiguraEn(Point p) {
         return modelo.getFiguraEn(p);
+    }
+
+    public void eVmouseClicked(MouseEvent ev) {
+        if (agregada != null) {
+            agregada.setPosicion(ev.getPoint());
+            agregada.visible = true;
+            agregada = null;
+        }
+        vista.repaint();
     }
 
     public void eVmousePressed(MouseEvent ev) {
@@ -86,37 +76,52 @@ public class Controlador {
         } else if (SwingUtilities.isMiddleMouseButton(ev))//click boton medio a�ade figura tipo circulo
         {
         }
-        punto = ev.getPoint();
         vista.repaint();
     }
 
     public void eVmouseDragged(MouseEvent ev) {
         if (seleccionada != null) {
             //El movimiento puede ser mas fluido recalculando el pto
-            //this.cambiarPosicion(seleccionada, ev.getPoint());
-            this.desplazar(seleccionada, ev.getPoint());
-
+            this.cambiarPosicion(seleccionada, ev.getPoint());
             vista.repaint();
-        }
-        if (seleccionada != null) {
-            intersectada = this.getFiguraEn2(ev.getPoint(),seleccionada);
-            if (intersectada != null) {
-                seleccionada.pegar(intersectada);
-                vista.repaint();
-            }
-
         }
     }
 
     public void eVmouseReleased(MouseEvent ev) {
         vista.repaint();
-        if (intersectada != null && seleccionada != null) {
-            seleccionada.unir(intersectada);
-        }
         if (seleccionada != null) {
             seleccionada.setSeleccionada(false);
             seleccionada = null;
         }
+    }
 
+    public void guardar() {
+        //System.out.println("si guarda");
+        ObjectContainer base = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "BaseDatos");
+        try {
+            modelo.BaseD = JOptionPane.showInputDialog(vista, "Ingrese Nombre del Modelo:");
+            base.store(modelo);
+        } finally {
+            base.close();
+        }
+    }
+
+    public void cargar() {
+        // System.out.println("si carga");
+        ObjectContainer  base1= Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "BaseDatos");
+        try {
+
+            ObjectSet<Modelo> lista = base1.query(Modelo.class);
+            for (Modelo m : lista) {
+                System.out.println("MODELO " + m);
+            }
+            Modelo dibu = (Modelo) JOptionPane.showInputDialog(vista, "Mensaje", "Titulo", JOptionPane.INFORMATION_MESSAGE, null, lista.toArray(), lista.get(0));
+            if (dibu != null) {
+                modelo.extraer(dibu);
+            }
+            vista.repaint();
+        } finally {
+            base1.close();
+        }
     }
 }
