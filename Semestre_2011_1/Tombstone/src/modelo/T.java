@@ -8,7 +8,7 @@ import modelo.Modelo;
 public class T extends Figura {
 
     private int ancho;
-    public  String de = "", para = "", en = "";
+    public String de = "", para = "", en = "";
 
     public T() {
     }
@@ -35,6 +35,7 @@ public class T extends Figura {
         int difY = Math.abs(p.y - (posicion.y + (ancho / 2)));
         return ((difX < ancho / 2) && (difY < ancho / 2));
     }
+
     public void dibujar(Graphics g) {
         g.setColor(Color.BLUE);
         g.fillRect(this.getX(), this.getY(), this.getAncho(), this.getAncho() / 4 - 10);
@@ -49,97 +50,114 @@ public class T extends Figura {
             g.drawRect(this.getX() + 67, this.getY() + 7, this.getAncho() - 135, this.getAncho() - 135);
         }
     }
+
     @Override
     public void pegar(Figura intersectada) {
-        if (intersectada instanceof interprete &&
-            this.vec[1] == null &&
-            intersectada.vec[0] == null &&
-            this.en.equals(((interprete) intersectada).de)) //maquina
+        if (intersectada instanceof interprete
+                && this.vec[1] == null
+                && intersectada.vec[0] == null
+                && this.en.equals(((interprete) intersectada).de)) //maquina
         {
             Point p = new Point(intersectada.posicion);
             p.x -= 60;
             p.y -= 80;
             this.setPosicion(p);
         }
-        if (intersectada instanceof maquina &&
-            this.vec[1] == null &&
-            intersectada.vec[0] == null &&
-            this.en.equals(((maquina) intersectada).de)) //maquina
+        if (intersectada instanceof maquina
+                && this.vec[1] == null
+                && intersectada.vec[0] == null
+                && this.en.equals(((maquina) intersectada).de)) //maquina
         {
             Point p = new Point(intersectada.posicion);
             p.x -= 60;
             p.y -= 80;
             this.setPosicion(p);
         }
-        if (intersectada instanceof programa &&
-            this.vec[3] == null &&
-            intersectada.vec[2] == null &&
-            this.de.equals(((programa) intersectada).para)) //programa
+        if (intersectada instanceof programa
+                && this.vec[3] == null
+                && intersectada.vec[2] == null
+                && this.de.equals(((programa) intersectada).para)) //programa
         {
             Point p = new Point(intersectada.posicion);
             p.x += 60;
             p.y += 60;
             this.setPosicion(p);
         }
-        if (intersectada instanceof T &&
-            this.vec[1] == null &&
-            intersectada.vec[2] == null &&
-            this.en.equals(((T) intersectada).de))// tombstom izquierda
+        if (intersectada instanceof T
+                && this.vec[1] == null
+                && intersectada.vec[2] == null
+                && this.en.equals(((T) intersectada).de))// tombstom izquierda
         {
             Point p = new Point(intersectada.posicion);
             p.x -= 130;
             p.y -= 40;
             this.setPosicion(p);
-        } else if (intersectada instanceof T &&
-                   this.vec[1] == null &&
-                   intersectada.vec[3] == null &&
-                   this.en.equals(((T) intersectada).para)) //tombston derecho
+        } else if (intersectada instanceof T
+                && this.vec[1] == null
+                && intersectada.vec[3] == null
+                && this.en.equals(((T) intersectada).para)) //tombston derecho
         {
             Point p = new Point(intersectada.posicion);
             p.x += 120;
             p.y -= 40;
             this.setPosicion(p);
+        } else if (intersectada instanceof programa
+                && this.vec[2] == null
+                && intersectada.vec[3] == null
+                && this.de.equals(((programa) intersectada).para)) //programa
+        {
+            Point p = new Point(intersectada.posicion);
+            p.x -= 190;
+            p.y += 60;
+            this.setPosicion(p);
         }
     }
+
     @Override
     public void unir(Figura intersectada) {
-        if (intersectada instanceof programa &&
-            this.vec[3] == null &&
-            intersectada.vec[2] == null &&
-            this.de.equals(((programa) intersectada).para)) //programa
+        if (intersectada instanceof programa
+                && this.vec[3] == null
+                && intersectada.vec[2] == null
+                && this.de.equals(((programa) intersectada).para)) //programa
         {
             this.vec[3] = intersectada;
             intersectada.vec[2] = this;
         }
-        if (intersectada instanceof interprete &&
-            this.vec[1] == null &&
-            intersectada.vec[0] == null &&
-            this.en.equals(((interprete) intersectada).de)) //maquina
+        if (intersectada instanceof interprete
+                && this.vec[1] == null
+                && intersectada.vec[0] == null
+                && this.en.equals(((interprete) intersectada).de)) //maquina
         {
             this.vec[1] = intersectada;
             intersectada.vec[0] = this;
         }
-        if (intersectada instanceof maquina &&
-            this.vec[1] == null &&
-            intersectada.vec[0] == null &&
-            this.en.equals(((maquina) intersectada).de)) //maquina
+        if (intersectada instanceof maquina
+                && this.vec[1] == null
+                && intersectada.vec[0] == null
+                && this.en.equals(((maquina) intersectada).de)) //maquina
         {
             this.vec[1] = intersectada;
             intersectada.vec[0] = this;
         }
-        if (intersectada instanceof T &&
-            this.vec[1] == null &&
-            intersectada.vec[2] == null &&
-            this.en.equals(((T) intersectada).de))// tombstom izquierda
+        if (intersectada instanceof T
+                && this.vec[1] == null
+                && intersectada.vec[2] == null
+                && this.en.equals(((T) intersectada).de))// tombstom izquierda
         {
             this.vec[1] = intersectada;
             intersectada.vec[2] = this;
-        } else if (intersectada instanceof T &&
-                   this.vec[1] == null &&
-                   intersectada.vec[3] == null &&
-                   this.en.equals(((T) intersectada).para)) //tombston derecho
+        } else if (intersectada instanceof T
+                && this.vec[1] == null
+                && intersectada.vec[3] == null
+                && this.en.equals(((T) intersectada).para)) //tombston derecho
         {
             this.vec[1] = intersectada;
+            intersectada.vec[3] = this;
+        } else if (intersectada instanceof programa
+                && this.vec[2] == null
+                && intersectada.vec[3] == null
+                && this.de.equals(((programa) intersectada).para)) {
+            this.vec[2] = intersectada;
             intersectada.vec[3] = this;
         }
     }
