@@ -2,7 +2,6 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-
 import javax.swing.*;
 import vista.Vista;
 import modelo.Modelo;
