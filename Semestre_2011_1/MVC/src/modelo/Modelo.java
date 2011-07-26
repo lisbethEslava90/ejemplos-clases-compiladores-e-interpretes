@@ -35,4 +35,34 @@ public class Modelo {
 		}
 		return null;
 	}
+<<<<<<< HEAD
+=======
+
+        public String toString(){
+
+            return BaseD;
+        }
+
+        public void extraer(Modelo yy){
+            for(int k=0;k<listaFiguras.size();k++)
+            {
+                listaFiguras.remove(0);
+            }
+            System.out.println("Nuevo tamaño"+ listaFiguras.size());
+            for(Figura d:yy.listaFiguras)
+            {
+               listaFiguras.add(d);
+            }
+            listaFiguras=yy.listaFiguras;
+            System.out.println(listaFiguras);
+
+        }
+<<<<<<< HEAD
+
+        public void limpiar(Modelo yy){            
+               listaFiguras.clear();           
+        }
+=======
+>>>>>>> 4f0f8471e7efb538e56cd702ec37a77097327e55
+>>>>>>> d9343a4cdba3aad1b32abc5389acd6641dd23c0e
 }

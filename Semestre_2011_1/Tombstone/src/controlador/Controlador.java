@@ -12,19 +12,19 @@ import javax.swing.*;
 import vista.Vista;
 import modelo.Figura;
 import modelo.Modelo;
-import modelo.T;
-import modelo.programa;
-import modelo.maquina;
-import modelo.interprete;
 
 public class Controlador {
 
     private Modelo modelo;
     private Vista vista;
+<<<<<<< HEAD
     private Figura seleccionada, dere, izq, arriba, abajo, agregada;
     private Figura intersectada;
     Point punto;
     public boolean band = false;
+=======
+    private Figura seleccionada, agregada;
+>>>>>>> d9343a4cdba3aad1b32abc5389acd6641dd23c0e
 
     public Controlador(Modelo modelo, Vista vista) {
         this.modelo = modelo;
@@ -44,30 +44,8 @@ public class Controlador {
         return null;
     }
 
-    private Figura getFiguraEn2(Point posicion, Figura yo) {
-        ListIterator<Figura> it = modelo.getListado().listIterator();
-        while (it.hasNext()) {
-            Figura tmp = it.next();
-            if (!tmp.equals(yo) && tmp.dentroFigura(posicion)) {
-                tmp.setSeleccionada(true);
-                return tmp;
-            }
-        }
-        return null;
-    }
-
-//	public void cambiarPosicion(Figura f, Point p){
-//		f.setPosicion(p);
-//	}
-    public void desplazar(Figura f, Point p) {
-        Point desplazamiento = new Point();
-        desplazamiento.x = p.x - punto.x;
-        desplazamiento.y = p.y - punto.y;
-        punto = new Point();
-        punto.x = p.x;
-        punto.y = p.y;
-        f.desplazar(desplazamiento);
-        f.yasemovieron();
+    public void cambiarPosicion(Figura f, Point p) {
+        f.setPosicion(p);
     }
 
     public Vista getVista() {
@@ -104,6 +82,7 @@ public class Controlador {
             this.eliminarFigura(seleccionada);
         } else if (SwingUtilities.isMiddleMouseButton(ev))//click boton medio a�ade figura tipo circulo
         {
+<<<<<<< HEAD
             seleccionada = this.getFiguraEn(ev.getPoint());
             arriba = seleccionada.vec[0];
             abajo = seleccionada.vec[1];
@@ -172,39 +151,65 @@ public class Controlador {
                     arriba.vec[1] = null;
                 }
             }
+=======
+>>>>>>> d9343a4cdba3aad1b32abc5389acd6641dd23c0e
         }
-        punto = ev.getPoint();
         vista.repaint();
     }
 
     public void eVmouseDragged(MouseEvent ev) {
         if (seleccionada != null) {
             //El movimiento puede ser mas fluido recalculando el pto
-            //this.cambiarPosicion(seleccionada, ev.getPoint());
-            this.desplazar(seleccionada, ev.getPoint());
-
+            this.cambiarPosicion(seleccionada, ev.getPoint());
             vista.repaint();
-        }
-        if (seleccionada != null) {
-            intersectada = this.getFiguraEn2(ev.getPoint(), seleccionada);
-            if (intersectada != null) {
-                seleccionada.pegar(intersectada);
-                vista.repaint();
-            }
-
         }
     }
 
     public void eVmouseReleased(MouseEvent ev) {
         vista.repaint();
-        if (intersectada != null && seleccionada != null) {
-            seleccionada.unir(intersectada);
-        }
         if (seleccionada != null) {
             seleccionada.setSeleccionada(false);
             seleccionada = null;
         }
+    }
 
+    public void guardar() {
+        //System.out.println("si guarda");
+        ObjectContainer base = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "BaseDatos");
+        try {
+            modelo.BaseD = JOptionPane.showInputDialog(vista, "Ingrese Nombre del Modelo:");
+            base.store(modelo);
+<<<<<<< HEAD
+            modelo.limpiar(modelo);
+            vista.repaint();
+=======
+>>>>>>> 4f0f8471e7efb538e56cd702ec37a77097327e55
+        } finally {
+            base.close();
+        }
+    }
+
+    public void cargar() {
+        // System.out.println("si carga");
+        ObjectContainer  base1= Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "BaseDatos");
+        try {
+
+<<<<<<< HEAD
+            ObjectSet<Modelo> lista = base1.query(Modelo.class);            
+=======
+            ObjectSet<Modelo> lista = base1.query(Modelo.class);
+            for (Modelo m : lista) {
+                System.out.println("MODELO " + m);
+            }
+>>>>>>> 4f0f8471e7efb538e56cd702ec37a77097327e55
+            Modelo dibu = (Modelo) JOptionPane.showInputDialog(vista, "Mensaje", "Titulo", JOptionPane.INFORMATION_MESSAGE, null, lista.toArray(), lista.get(0));
+            if (dibu != null) {
+                modelo.extraer(dibu);
+            }
+            vista.repaint();
+        } finally {
+            base1.close();
+        }
     }
 
     public void guardar() {

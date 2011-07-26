@@ -8,6 +8,10 @@ public class Modelo {
 	
 	private List<Figura> listaFiguras;
         public String BaseD;
+<<<<<<< HEAD
+=======
+
+>>>>>>> d9343a4cdba3aad1b32abc5389acd6641dd23c0e
 	public Modelo(){
 		listaFiguras = new ArrayList<Figura>();
 	}
@@ -23,6 +27,7 @@ public class Modelo {
 	public void anyadirFigura(Figura f){
 		listaFiguras.add(f);
 	}
+
         public void eliminarFigura(Figura f){
                 listaFiguras.remove(f);
         }
@@ -36,11 +41,21 @@ public class Modelo {
 		}
 		return null;
 	}
+<<<<<<< HEAD
          public String toString(){
 
             return BaseD;
         }
  public void extraer(Modelo yy){
+=======
+
+        public String toString(){
+
+            return BaseD;
+        }
+
+        public void extraer(Modelo yy){
+>>>>>>> d9343a4cdba3aad1b32abc5389acd6641dd23c0e
             for(int k=0;k<listaFiguras.size();k++)
             {
                 listaFiguras.remove(0);
@@ -54,8 +69,18 @@ public class Modelo {
             System.out.println(listaFiguras);
 
         }
+<<<<<<< HEAD
         public void limpiar(Modelo yy){            
                listaFiguras.clear();           
         }
 
+=======
+<<<<<<< HEAD
+
+        public void limpiar(Modelo yy){            
+               listaFiguras.clear();           
+        }
+=======
+>>>>>>> 4f0f8471e7efb538e56cd702ec37a77097327e55
+>>>>>>> d9343a4cdba3aad1b32abc5389acd6641dd23c0e
 }

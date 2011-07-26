@@ -189,6 +189,48 @@ public class Controlador {
             seleccionada.setSeleccionada(false);
             seleccionada = null;
         }
+<<<<<<< HEAD
 
+=======
+    }
+
+    public void guardar() {
+        //System.out.println("si guarda");
+        ObjectContainer base = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "BaseDatos");
+        try {
+            modelo.BaseD = JOptionPane.showInputDialog(vista, "Ingrese Nombre del Modelo:");
+            base.store(modelo);
+<<<<<<< HEAD
+            modelo.limpiar(modelo);
+            vista.repaint();
+=======
+>>>>>>> 4f0f8471e7efb538e56cd702ec37a77097327e55
+        } finally {
+            base.close();
+        }
+    }
+
+    public void cargar() {
+        // System.out.println("si carga");
+        ObjectContainer  base1= Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "BaseDatos");
+        try {
+
+<<<<<<< HEAD
+            ObjectSet<Modelo> lista = base1.query(Modelo.class);            
+=======
+            ObjectSet<Modelo> lista = base1.query(Modelo.class);
+            for (Modelo m : lista) {
+                System.out.println("MODELO " + m);
+            }
+>>>>>>> 4f0f8471e7efb538e56cd702ec37a77097327e55
+            Modelo dibu = (Modelo) JOptionPane.showInputDialog(vista, "Mensaje", "Titulo", JOptionPane.INFORMATION_MESSAGE, null, lista.toArray(), lista.get(0));
+            if (dibu != null) {
+                modelo.extraer(dibu);
+            }
+            vista.repaint();
+        } finally {
+            base1.close();
+        }
+>>>>>>> d9343a4cdba3aad1b32abc5389acd6641dd23c0e
     }
 }

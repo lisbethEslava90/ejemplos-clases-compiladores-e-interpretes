@@ -16,13 +16,21 @@ import modelo.maquina;
 import modelo.programa;
 
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> d9343a4cdba3aad1b32abc5389acd6641dd23c0e
 public class Vista extends JPanel{
 	static final long serialVersionUID = 0L;
 	private Modelo modelo;
 	public Controlador controlador;  //IMPORTANTE DEBE SER REGISTRADO O TODO FALLA
         private JMenuBar barra;
         private JMenu agregar, diagrama;
+<<<<<<< HEAD
         private JMenuItem item1, item2, item3, item4, item5, item6, item7;
+=======
+        private JMenuItem item1, item2, item3, item4, item5, item6, item7, item8;
+>>>>>>> d9343a4cdba3aad1b32abc5389acd6641dd23c0e
         private Point lugar;
         private JFrame datos;
         private JLabel lfuente, lobjeto, lescribe;
@@ -110,7 +118,13 @@ public class Vista extends JPanel{
 
 		//Mejorable al 1000% solo por simplificacion realizado de esta forma
 		MouseController mouseControl = new MouseController() {
+<<<<<<< HEAD
 			public void mouseClicked(MouseEvent event) {}
+=======
+			
+           	public void mouseClicked(MouseEvent event) {
+                	eVmouseClicked(event);	}
+>>>>>>> d9343a4cdba3aad1b32abc5389acd6641dd23c0e
 			public void mouseEntered(MouseEvent event) {}
 			public void mouseExited(MouseEvent event) {}
 			public void mouseMoved(MouseEvent event) {}
@@ -137,12 +151,25 @@ public class Vista extends JPanel{
 		}
 	}
 
+<<<<<<< HEAD
+=======
+    public void eVmouseClicked(MouseEvent ev) {
+        if (controlador != null) {
+            lugar = ev.getPoint();
+            controlador.eVmouseClicked(ev);
+        }
+    }
+
+>>>>>>> d9343a4cdba3aad1b32abc5389acd6641dd23c0e
 	public void eVmousePressed(MouseEvent ev) {
 		if(controlador!=null)
 		{
 			controlador.eVmousePressed(ev);
 		}
+<<<<<<< HEAD
                 
+=======
+>>>>>>> d9343a4cdba3aad1b32abc5389acd6641dd23c0e
 	}
 	
 	public void eVmouseDragged(MouseEvent ev) {
@@ -222,7 +249,195 @@ public class Vista extends JPanel{
                         objeto.setVisible(true);
                         opcion = 0;
                         break;
+<<<<<<< HEAD
 
+=======
+=======
+    static final long serialVersionUID = 0L;
+    private Modelo modelo;
+    public Controlador controlador;  //IMPORTANTE DEBE SER REGISTRADO O TODO FALLA
+    private JMenuBar barra;
+    private JMenu agregar, diagrama;
+    private JMenuItem item1, item2, item3, item4, item5, item6, item7;
+    private Point lugar;
+    private JFrame datos;
+    private JLabel lfuente, lobjeto, lescribe;
+    private JTextField fuente, objeto, escrito;
+    private JButton aceptar;
+    private String de = "", para = "", en = "";
+    private int opcion = 0;
+    private boolean band = false, bcomp = false, bpro = false, bmaq = false, binter = false, bvir = false;
+    private Timer timer;
+>>>>>>> 4f0f8471e7efb538e56cd702ec37a77097327e55
+
+    public Vista(Dimension size, Modelo modelo) {
+        super();
+        this.modelo = modelo;
+
+        setPreferredSize(size);
+        setBackground(Color.white);
+        setFocusable(true);
+
+        lugar = new Point(100, 100);
+        timer = new Timer(1, new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+
+                if (band == true && bcomp == true) {
+
+                    controlador.anyadirFigura(new T(lugar, 200, de, para, en));
+                    band = false;
+                    bcomp = false;
+                    datos.setVisible(false);
+                    fuente.setText("");
+                    objeto.setText("");
+                    escrito.setText("");
+                } else if (band == true && bpro == true) {
+                    controlador.anyadirFigura(new programa(lugar, 100, de, para));
+                    band = false;
+                    bpro = false;
+                    datos.setVisible(false);
+                    fuente.setText("");
+                    objeto.setText("");
+                    escrito.setText("");
+                } else if (band == true && bmaq == true) {
+                    controlador.anyadirFigura(new maquina(lugar, 80, de, para, false));
+                    band = false;
+                    bmaq = false;
+                    datos.setVisible(false);
+                    fuente.setText("");
+                    objeto.setText("");
+                    escrito.setText("");
+                } else if (band == true && binter == true) {
+                    controlador.anyadirFigura(new interprete(lugar, 80, de, para));
+                    band = false;
+                    binter = false;
+                    datos.setVisible(false);
+                    fuente.setText("");
+                    objeto.setText("");
+                    escrito.setText("");
+                } else if (band == true && bvir == true) {
+                    controlador.anyadirFigura(new maquina(lugar, 80, de, para, true));
+                    band = false;
+                    bvir = false;
+                    datos.setVisible(false);
+                    fuente.setText("");
+                    objeto.setText("");
+                    escrito.setText("");
+                }
+            }
+        });
+        lfuente = new JLabel("Lenguaje Fuente:");
+        lobjeto = new JLabel("Lenguaje Objeto:");
+        lescribe = new JLabel("Escrito en:");
+        fuente = new JTextField();
+        objeto = new JTextField();
+        escrito = new JTextField();
+        aceptar = new JButton("Aceptar");
+
+        datos = new JFrame("Datos");
+
+<<<<<<< HEAD
+    public JMenuBar barra_menu() {
+        barra = new JMenuBar();
+        agregar = new JMenu("Agregar");
+        diagrama = new JMenu("Diagrama");
+        item1 = new JMenuItem("Compilador");
+        item1.addActionListener(new EventoMenu());
+        item2 = new JMenuItem("Programa");
+        item2.addActionListener(new EventoMenu());
+        item3 = new JMenuItem("Maquina");
+        item3.addActionListener(new EventoMenu());
+        item4 = new JMenuItem("Interprete");
+        item4.addActionListener(new EventoMenu());
+        item5 = new JMenuItem("Maquina Virtual");
+        item5.addActionListener(new EventoMenu());
+        item6 = new JMenuItem("Guardar Modelo");
+        item6.addActionListener(new EventoMenu());
+        item7 = new JMenuItem("Cargar Modelo");
+        item7.addActionListener(new EventoMenu());
+        item8 = new JMenuItem("Cerrar");
+        item8.addActionListener(new EventoMenu());
+        agregar.add(item1);
+        agregar.add(item2);
+        agregar.add(item3);
+        agregar.add(item4);
+        agregar.add(item5);
+        diagrama.add(item6);
+        diagrama.add(item7);
+        diagrama.add(item8);
+        barra.add(agregar);
+        barra.add(diagrama);
+        return barra;
+    }
+
+    class EventoMenu implements ActionListener {
+
+        public void actionPerformed(ActionEvent evt) {
+
+            if (evt.getSource() == item1) {
+                opcion = 1;
+                datos();
+                bcomp = true;
+            }
+            if (evt.getSource() == item2) {
+                opcion = 2;
+                datos();
+                bpro = true;
+            }
+            if (evt.getSource() == item3) {
+                opcion = 3;
+                datos();
+                bmaq = true;
+            }
+            if (evt.getSource() == item4) {
+                opcion = 4;
+                datos();
+                binter = true;
+
+            }
+            if (evt.getSource() == item5) {
+                opcion = 5;
+                datos();
+                bvir = true;
+            }
+            if (evt.getSource() == item6) {
+                opcion = 6;
+                controlador.guardar();
+
+            }
+            if (evt.getSource() == item7) {
+                opcion = 7;
+                controlador.cargar();
+            }
+            if (evt.getSource() == item8) {
+                opcion = 8;
+                System.exit(0);
+            }
+        }
+    }
+}
+=======
+        datos.setBounds(100, 100, 300, 200);
+        datos.setLayout(null);
+        datos.setResizable(false);
+        datos.setDefaultCloseOperation(datos.getDefaultCloseOperation());
+        datos.add(lfuente);
+        datos.add(lobjeto);
+        datos.add(lescribe);
+        datos.add(fuente);
+        datos.add(objeto);
+        datos.add(escrito);
+        datos.add(aceptar);
+
+        timer.start();
+
+        //Mejorable al 1000% solo por simplificacion realizado de esta forma
+        MouseController mouseControl = new MouseController() {
+
+            public void mouseClicked(MouseEvent event) {
+                eVmouseClicked(event);
+>>>>>>> d9343a4cdba3aad1b32abc5389acd6641dd23c0e
             }
 
             datos.setVisible(true);
@@ -316,6 +531,7 @@ public class Vista extends JPanel{
             datos();
             bvir = true;
         }
+>>>>>>> 4f0f8471e7efb538e56cd702ec37a77097327e55
 
         }
      }
@@ -326,6 +542,7 @@ public class Vista extends JPanel{
 * SOLO para ahorrar espacio y simplificar cosas
 **************************************************/
 class MouseController implements MouseListener, MouseMotionListener {
+<<<<<<< HEAD
 	public void mouseClicked(MouseEvent event) {}
 	public void mouseEntered(MouseEvent event) {}
 	public void mouseExited(MouseEvent event) {}
@@ -334,3 +551,27 @@ class MouseController implements MouseListener, MouseMotionListener {
 	public void mouseDragged(MouseEvent event) {}
 	public void mouseMoved(MouseEvent event) {}
 }
+=======
+
+    public void mouseClicked(MouseEvent event) {
+    }
+
+    public void mouseEntered(MouseEvent event) {
+    }
+
+    public void mouseExited(MouseEvent event) {
+    }
+
+    public void mousePressed(MouseEvent event) {
+    }
+
+    public void mouseReleased(MouseEvent event) {
+    }
+
+    public void mouseDragged(MouseEvent event) {
+    }
+
+    public void mouseMoved(MouseEvent event) {
+    }
+}
+>>>>>>> d9343a4cdba3aad1b32abc5389acd6641dd23c0e
