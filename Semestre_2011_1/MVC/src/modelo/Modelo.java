@@ -7,6 +7,8 @@ import java.util.List;
 public class Modelo {
 	
 	private List<Figura> listaFiguras;
+        public String BaseD;
+
 	public Modelo(){
 		listaFiguras = new ArrayList<Figura>();
 	}
@@ -22,6 +24,7 @@ public class Modelo {
 	public void anyadirFigura(Figura f){
 		listaFiguras.add(f);
 	}
+
         public void eliminarFigura(Figura f){
                 listaFiguras.remove(f);
         }
@@ -55,8 +58,11 @@ public class Modelo {
             System.out.println(listaFiguras);
 
         }
+<<<<<<< HEAD
 
         public void limpiar(Modelo yy){            
                listaFiguras.clear();           
         }
+=======
+>>>>>>> 4f0f8471e7efb538e56cd702ec37a77097327e55
 }

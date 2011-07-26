@@ -8,8 +8,7 @@ public class interprete extends Figura
 {
 
     private int ancho;
-    public  String de="", para="";
-        public interprete(){}
+    private String de="", para="";
 	public interprete(Point posicion, int ancho, String de, String para){
 		this.posicion=posicion;
 		this.ancho=ancho;
@@ -51,12 +50,4 @@ public class interprete extends Figura
         {
             g.dispose();
         }
-
-    @Override
-    public void pegar(Figura intersectada) {
-    }
-
-    @Override
-    public void unir(Figura intersectada) {
-    }
 }

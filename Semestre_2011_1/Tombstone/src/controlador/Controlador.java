@@ -8,12 +8,16 @@ import javax.swing.*;
 import vista.Vista;
 import modelo.Figura;
 import modelo.Modelo;
+import modelo.T;
+import modelo.programa;
+import modelo.maquina;
+import modelo.interprete;
 
 public class Controlador {
 
     private Modelo modelo;
     private Vista vista;
-    private Figura seleccionada;
+    private Figura seleccionada, dere, izq, arriba, abajo;
     private Figura intersectada;
     Point punto;
 
@@ -85,6 +89,74 @@ public class Controlador {
             this.eliminarFigura(seleccionada);
         } else if (SwingUtilities.isMiddleMouseButton(ev))//click boton medio a�ade figura tipo circulo
         {
+            seleccionada = this.getFiguraEn(ev.getPoint());
+            arriba = seleccionada.vec[0];
+            abajo = seleccionada.vec[1];
+            izq = seleccionada.vec[2];
+            dere = seleccionada.vec[3];
+            for (int i = 0; i < 4; i++) {
+                seleccionada.vec[i] = null;
+            }
+//            System.out.println("dere "+dere);
+//            System.out.println("izq "+izq);
+//            System.out.println("arriba "+arriba);
+//            System.out.println("abajo "+abajo);
+            if (seleccionada instanceof T) {
+                if (dere instanceof programa && dere.vec[2] != null) {
+                    dere.vec[2] = null;
+                }
+                if (izq instanceof programa && izq.vec[3] != null) {
+                    izq.vec[3] = null;
+                }
+                if (dere instanceof T && dere.vec[1] != null) {
+                    dere.vec[1] = null;
+                }
+                if (izq instanceof T && izq.vec[1] != null) {
+                    izq.vec[1] = null;
+                }
+                if (abajo instanceof T && abajo.vec[2] != null) {
+                    abajo.vec[2] = null;
+                }
+                if (abajo instanceof T && abajo.vec[3] != null) {
+                    abajo.vec[3] = null;
+                }
+                if (abajo instanceof maquina && abajo.vec[0] != null) {
+                    abajo.vec[0] = null;
+                }
+                if (arriba instanceof T && arriba.vec[0] != null) {
+                    arriba.vec[0] = null;
+                }
+                if (abajo instanceof interprete && abajo.vec[0] != null) {
+                    abajo.vec[0] = null;
+                }
+            }
+            if (seleccionada instanceof programa) {
+                if (dere instanceof T && dere.vec[2] != null) {
+                    dere.vec[2] = null;
+                }
+                if (izq instanceof T && izq.vec[3] != null) {
+                    izq.vec[3] = null;
+                }
+                if (abajo instanceof maquina && abajo.vec[0] != null) {
+                    abajo.vec[0] = null;
+                }
+            }
+            if (seleccionada instanceof interprete) {
+                if (abajo instanceof maquina && abajo.vec[0] != null) {
+                    abajo.vec[0] = null;
+                }
+                if (arriba instanceof T && arriba.vec[1] != null) {
+                    arriba.vec[1] = null;
+                }
+            }
+            if (seleccionada instanceof maquina) {
+                if (arriba instanceof T && arriba.vec[1] != null) {
+                    arriba.vec[1] = null;
+                }
+                 if (arriba instanceof programa && arriba.vec[1] != null) {
+                    arriba.vec[1] = null;
+                }
+            }
         }
         punto = ev.getPoint();
         vista.repaint();
@@ -99,7 +171,7 @@ public class Controlador {
             vista.repaint();
         }
         if (seleccionada != null) {
-            intersectada = this.getFiguraEn2(ev.getPoint(),seleccionada);
+            intersectada = this.getFiguraEn2(ev.getPoint(), seleccionada);
             if (intersectada != null) {
                 seleccionada.pegar(intersectada);
                 vista.repaint();

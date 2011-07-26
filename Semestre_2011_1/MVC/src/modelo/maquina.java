@@ -9,12 +9,10 @@ public class maquina extends Figura
 
     private int ancho;
     private int[] xs, ys;
-    public String de="", para="";
+    private String de="", para="";
     private boolean band=false;
-        public maquina(){}
 	public maquina(Point posicion, int ancho, String de, String para, boolean band){
-	
-                this.posicion=new Point(0, 0);
+		this.posicion=posicion;
 		this.ancho=ancho;
                 this.para = para;
 		this.seleccionada=false;
@@ -54,7 +52,7 @@ public class maquina extends Figura
                 
                 if(this.band == false)
                 {
-                    g.setColor(Color.YELLOW);
+                    g.setColor(Color.MAGENTA);
                     g.fillPolygon(this.xs, this.ys, 5);
                     g.setColor(Color.BLACK);
                     g.drawString(de, this.getX()+25, this.getY()+20);
@@ -73,49 +71,5 @@ public class maquina extends Figura
 		}*/
             }
 	}
-
-    @Override
-    public void pegar(Figura intersectada) {
-
-        if (intersectada instanceof programa &&
-            this.vec[0] == null &&
-            intersectada.vec[1] == null &&
-            this.de.equals(((programa) intersectada).para)) //programa
-        {
-            Point p = new Point(intersectada.posicion);
-            p.x += 10;
-            p.y += 100;
-            this.setPosicion(p);
-        }
-        if (intersectada instanceof T &&
-            this.vec[0] == null &&
-            intersectada.vec[1] == null &&
-            this.de.equals(((T) intersectada).en))// tombstom izquierda
-        {
-            Point p = new Point(intersectada.posicion);
-            p.x += 60;
-            p.y += 60;
-            this.setPosicion(p);
-        } 
-    }
-    @Override
-    public void unir(Figura intersectada) {
-        if (intersectada instanceof programa &&
-            this.vec[0] == null &&
-            intersectada.vec[1] == null &&
-            this.de.equals(((programa) intersectada).para)) //programa
-        {
-            this.vec[0] = intersectada;
-            intersectada.vec[1] = this;
-        }
-        if (intersectada instanceof T &&
-            this.vec[0] == null &&
-            intersectada.vec[1] == null &&
-            this.de.equals(((T) intersectada).en))// tombstom izquierda
-        {
-            this.vec[0] = intersectada;
-            intersectada.vec[1] = this;
-        } 
-    }
 }
 

@@ -16,7 +16,7 @@ public abstract class Figura {
 //    1=abajo
 //    2=derecha
 //    3=izquierda
-    Figura vec[] = new Figura[4];
+    public Figura vec[] = new Figura[4];
 
     public void setPosicion(Point posicion) {
          yasemovieron();
@@ -25,10 +25,8 @@ public abstract class Figura {
 
         desplazamiento.x = posicion.x-this.posicion.x;
         desplazamiento.y = posicion.y-this.posicion.y;
-        System.out.println(desplazamiento);
         for (Figura figura : vec) {
             if (figura != null && figura.semovio==false) {
-                System.out.println("entrooo");
                 figura.desplazar(desplazamiento);
 
             }
