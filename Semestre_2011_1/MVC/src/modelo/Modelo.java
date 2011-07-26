@@ -35,7 +35,6 @@ public class Modelo {
 		}
 		return null;
 	}
-<<<<<<< HEAD
 
         public String toString(){
 
@@ -60,6 +59,4 @@ public class Modelo {
         public void limpiar(Modelo yy){            
                listaFiguras.clear();           
         }
-=======
->>>>>>> f3294a96fa81c330c7a43fc93c67a37eeb9fc8cb
 }

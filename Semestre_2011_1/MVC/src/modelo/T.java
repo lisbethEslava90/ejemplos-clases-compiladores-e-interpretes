@@ -37,6 +37,8 @@ public class T extends Figura {
     }
 
     public void dibujar(Graphics g) {
+            if(visible){
+
         g.setColor(Color.BLUE);
         g.fillRect(this.getX(), this.getY(), this.getAncho(), this.getAncho() / 4 - 10);
         g.fillRect(this.getX() + 60, this.getY(), this.getAncho() - 120, this.getAncho() - 120);
@@ -49,6 +51,7 @@ public class T extends Figura {
             g.drawRect(this.getX() + 7, this.getY() + 7, this.getAncho() - 20, this.getAncho() / 4 - 20);
             g.drawRect(this.getX() + 67, this.getY() + 7, this.getAncho() - 135, this.getAncho() - 135);
         }
+            }
     }
 
     @Override

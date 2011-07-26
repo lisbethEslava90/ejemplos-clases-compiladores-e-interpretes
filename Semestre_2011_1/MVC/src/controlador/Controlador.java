@@ -1,5 +1,9 @@
 package controlador;
 
+import com.db4o.Db4oEmbedded;
+import com.db4o.ObjectContainer;
+import com.db4o.ObjectSet;
+
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.util.ListIterator;
@@ -77,6 +81,15 @@ public class Controlador {
         return modelo.getFiguraEn(p);
     }
 
+    public void eVmouseClicked(MouseEvent ev) {
+        if (agregada != null) {
+            agregada.setPosicion(ev.getPoint());
+            agregada.visible = true;
+            agregada = null;
+        }
+        vista.repaint();
+    }
+
     public void eVmousePressed(MouseEvent ev) {
         if (SwingUtilities.isLeftMouseButton(ev)) { 			//Click boton izquierdo selecciona figura
             seleccionada = this.getFiguraEn(ev.getPoint());
@@ -118,7 +131,6 @@ public class Controlador {
             seleccionada = null;
         }
 
-<<<<<<< HEAD
     public void guardar() {
         //System.out.println("si guarda");
         ObjectContainer base = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "BaseDatos");
@@ -146,7 +158,5 @@ public class Controlador {
         } finally {
             base1.close();
         }
-=======
->>>>>>> f3294a96fa81c330c7a43fc93c67a37eeb9fc8cb
     }
 }

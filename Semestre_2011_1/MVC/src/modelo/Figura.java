@@ -8,6 +8,7 @@ public abstract class Figura {
     protected Point posicion;
     protected boolean seleccionada;
     boolean semovio;
+    public boolean visible;
 
     public abstract boolean dentroFigura(Point p);
 
