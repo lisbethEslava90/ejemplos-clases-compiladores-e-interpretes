@@ -38,7 +38,6 @@ public class Figuras {
         /*ModelScroll.repaint();
         frame.repaint();*/
         frame.pack();
-
     }
 
     public static void main(String[] args) {

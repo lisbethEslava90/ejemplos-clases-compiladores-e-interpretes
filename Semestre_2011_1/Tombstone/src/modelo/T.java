@@ -38,17 +38,20 @@ public class T extends Figura {
     }
 
     public void dibujar(Graphics g) {
-        g.setColor(Color.BLUE);
-        g.fillRect(this.getX(), this.getY(), this.getAncho(), this.getAncho() / 4 - 10);
-        g.fillRect(this.getX() + 60, this.getY(), this.getAncho() - 120, this.getAncho() - 120);
-        g.setColor(Color.BLACK);
-        g.drawString(de, this.getX() + 20, this.getY() + 25);
-        g.drawString(para, this.getX() + 150, this.getY() + 25);
-        g.drawString(en, this.getX() + 85, this.getY() + 70);
-        if (this.getSeleccionada()) {
-            g.setColor(Color.RED);
-            g.drawRect(this.getX() + 7, this.getY() + 7, this.getAncho() - 20, this.getAncho() / 4 - 20);
-            g.drawRect(this.getX() + 67, this.getY() + 7, this.getAncho() - 135, this.getAncho() - 135);
+        if (visible) {
+
+            g.setColor(Color.BLUE);
+            g.fillRect(this.getX(), this.getY(), this.getAncho(), this.getAncho() / 4 - 10);
+            g.fillRect(this.getX() + 60, this.getY(), this.getAncho() - 120, this.getAncho() - 120);
+            g.setColor(Color.BLACK);
+            g.drawString(de, this.getX() + 20, this.getY() + 25);
+            g.drawString(para, this.getX() + 150, this.getY() + 25);
+            g.drawString(en, this.getX() + 85, this.getY() + 70);
+            if (this.getSeleccionada()) {
+                g.setColor(Color.RED);
+                g.drawRect(this.getX() + 7, this.getY() + 7, this.getAncho() - 20, this.getAncho() / 4 - 20);
+                g.drawRect(this.getX() + 67, this.getY() + 7, this.getAncho() - 135, this.getAncho() - 135);
+            }
         }
     }
 
@@ -100,8 +103,8 @@ public class T extends Figura {
                 && this.para.equals(((programa) intersectada).para)) //programa lado izq
         {
             Point p = new Point(intersectada.posicion);
-            p.x -= 180;
-            p.y += 60;
+            p.x -= 190;
+            p.y += 80;
             this.setPosicion(p);
         } else if (intersectada instanceof programa
                 && this.vec[2] == null
@@ -109,8 +112,8 @@ public class T extends Figura {
                 && this.de.equals(((programa) intersectada).para)) //programa
         {
             Point p = new Point(intersectada.posicion);
-            p.x += 60;
-            p.y += 60;
+            p.x += 80;
+            p.y += 80;
             this.setPosicion(p);
         }
     }

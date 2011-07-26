@@ -40,17 +40,20 @@ public class programa extends Figura {
 
     @Override
     public void dibujar(Graphics g) {
-        g.setColor(Color.ORANGE);
-        g.fillOval(this.getX(), this.getY(), this.getRadio(), this.getRadio());
-        g.fillRect(this.getX() + 10, this.getY() + 50, 50, 50);
-        g.setColor(Color.black);
-        g.drawString(this.de, this.getX() + 25, this.getY() + 40);
-        g.drawString(para, this.getX() + 25, this.getY() + 90);
-        if (this.getSeleccionada()) {
+        if (visible) {
             g.setColor(Color.ORANGE);
-            g.drawOval(this.getX() + 7, this.getY() + 7, this.getRadio() - 15, this.getRadio() - 15);
-            g.drawRect(this.getX() + 17, this.getY() + 57, 40, 40);
+            g.fillOval(this.getX(), this.getY(), this.getRadio(), this.getRadio());
+            g.fillRect(this.getX() + 10, this.getY() + 50, 80, 70);
+            g.setColor(Color.black);
+            g.drawString(this.de, this.getX() + 25, this.getY() + 40);
+            g.drawString(this.para, this.getX() + 25, this.getY() + 90);
+            if (this.getSeleccionada()) {
+                g.setColor(Color.ORANGE);
+                g.drawOval(this.getX() + 7, this.getY() + 7, this.getRadio() - 15, this.getRadio() - 15);
+                g.drawRect(this.getX() + 17, this.getY() + 57, 40, 40);
+            }
         }
+
     }
 
     @Override
@@ -72,8 +75,8 @@ public class programa extends Figura {
                 && this.para.equals(((T) intersectada).de))// tombstom izquierda
         {
             Point p = new Point(intersectada.posicion);
-            p.x -= 60;
-            p.y -= 60;
+            p.x -= 80;
+            p.y -= 80;
             this.setPosicion(p);
         } else if (intersectada instanceof T
                 && this.vec[2] == null
@@ -81,8 +84,8 @@ public class programa extends Figura {
                 && this.para.equals(((T) intersectada).para)) //tombston derecho
         {
             Point p = new Point(intersectada.posicion);
-            p.x += 180;
-            p.y -= 60;
+            p.x += 190;
+            p.y -= 80;
             this.setPosicion(p);
         }
     }

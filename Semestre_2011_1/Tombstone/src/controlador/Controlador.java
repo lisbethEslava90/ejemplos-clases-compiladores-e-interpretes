@@ -1,5 +1,9 @@
 package controlador;
 
+import com.db4o.Db4oEmbedded;
+import com.db4o.ObjectContainer;
+import com.db4o.ObjectSet;
+
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.util.ListIterator;
@@ -17,9 +21,10 @@ public class Controlador {
 
     private Modelo modelo;
     private Vista vista;
-    private Figura seleccionada, dere, izq, arriba, abajo;
+    private Figura seleccionada, dere, izq, arriba, abajo, agregada;
     private Figura intersectada;
     Point punto;
+    public boolean band = false;
 
     public Controlador(Modelo modelo, Vista vista) {
         this.modelo = modelo;
@@ -71,6 +76,7 @@ public class Controlador {
 
     public void anyadirFigura(Figura f) {
         modelo.anyadirFigura(f);
+        agregada = f;
     }
 
     public void eliminarFigura(Figura f) {
@@ -79,6 +85,15 @@ public class Controlador {
 
     public Figura getFiguraEn(Point p) {
         return modelo.getFiguraEn(p);
+    }
+
+    public void eVmouseClicked(MouseEvent ev) {
+        if (agregada != null) {
+            agregada.setPosicion(ev.getPoint());
+            agregada.visible = true;
+            agregada = null;
+        }
+        vista.repaint();
     }
 
     public void eVmousePressed(MouseEvent ev) {
@@ -97,10 +112,6 @@ public class Controlador {
             for (int i = 0; i < 4; i++) {
                 seleccionada.vec[i] = null;
             }
-//            System.out.println("dere "+dere);
-//            System.out.println("izq "+izq);
-//            System.out.println("arriba "+arriba);
-//            System.out.println("abajo "+abajo);
             if (seleccionada instanceof T) {
                 if (dere instanceof programa && dere.vec[2] != null) {
                     dere.vec[2] = null;
@@ -114,11 +125,15 @@ public class Controlador {
                 if (izq instanceof T && izq.vec[1] != null) {
                     izq.vec[1] = null;
                 }
-                if (abajo instanceof T && abajo.vec[2] != null) {
-                    abajo.vec[2] = null;
-                }
-                if (abajo instanceof T && abajo.vec[3] != null) {
-                    abajo.vec[3] = null;
+                if (abajo instanceof T) {
+                    System.out.println("derecha" + abajo.vec[3]);
+                    System.out.println("izquierda" + abajo.vec[2]);
+                    if (abajo.vec[2] != null && abajo.vec[2] == seleccionada) {
+                        abajo.vec[2] = null;
+                    }
+                    else if(abajo.vec[3] != null && abajo.vec[3] == seleccionada) {
+                        abajo.vec[3] = null;
+                    }
                 }
                 if (abajo instanceof maquina && abajo.vec[0] != null) {
                     abajo.vec[0] = null;
@@ -153,7 +168,7 @@ public class Controlador {
                 if (arriba instanceof T && arriba.vec[1] != null) {
                     arriba.vec[1] = null;
                 }
-                 if (arriba instanceof programa && arriba.vec[1] != null) {
+                if (arriba instanceof programa && arriba.vec[1] != null) {
                     arriba.vec[1] = null;
                 }
             }
@@ -190,5 +205,41 @@ public class Controlador {
             seleccionada = null;
         }
 
+    }
+
+    public void guardar() {
+        //System.out.println("si guarda");
+        ObjectContainer base = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "BaseDatos");
+        try {
+            modelo.BaseD = JOptionPane.showInputDialog(vista, "Ingrese Nombre del Modelo:");
+            base.store(modelo);
+
+            modelo.limpiar(modelo);
+            vista.repaint();
+
+        } finally {
+            base.close();
+        }
+    }
+
+    public void cargar() {
+        // System.out.println("si carga");
+        ObjectContainer base1 = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "BaseDatos");
+        try {
+
+
+            ObjectSet<Modelo> lista = base1.query(Modelo.class);
+            for (Modelo m : lista) {
+                System.out.println("MODELO " + m);
+            }
+
+            Modelo dibu = (Modelo) JOptionPane.showInputDialog(vista, "Mensaje", "Titulo", JOptionPane.INFORMATION_MESSAGE, null, lista.toArray(), lista.get(0));
+            if (dibu != null) {
+                modelo.extraer(dibu);
+            }
+            vista.repaint();
+        } finally {
+            base1.close();
+        }
     }
 }

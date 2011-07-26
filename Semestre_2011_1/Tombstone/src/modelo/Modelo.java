@@ -7,6 +7,7 @@ import java.util.List;
 public class Modelo {
 	
 	private List<Figura> listaFiguras;
+        public String BaseD;
 	public Modelo(){
 		listaFiguras = new ArrayList<Figura>();
 	}
@@ -35,4 +36,26 @@ public class Modelo {
 		}
 		return null;
 	}
+         public String toString(){
+
+            return BaseD;
+        }
+ public void extraer(Modelo yy){
+            for(int k=0;k<listaFiguras.size();k++)
+            {
+                listaFiguras.remove(0);
+            }
+            System.out.println("Nuevo tamaño"+ listaFiguras.size());
+            for(Figura d:yy.listaFiguras)
+            {
+               listaFiguras.add(d);
+            }
+            listaFiguras=yy.listaFiguras;
+            System.out.println(listaFiguras);
+
+        }
+        public void limpiar(Modelo yy){            
+               listaFiguras.clear();           
+        }
+
 }

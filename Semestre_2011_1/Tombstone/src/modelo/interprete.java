@@ -35,15 +35,17 @@ public class interprete extends Figura {
     }
 
     public void dibujar(Graphics g) {
-        g.setColor(Color.GRAY);
-        g.fillRect(this.getX(), this.getY(), this.getAncho(), this.getAncho());
-        g.setColor(Color.BLACK);
-        g.drawString(de, this.getX() + 25, this.getY() + 25);
-        g.drawString(para, this.getX() + 25, this.getY() + 70);
+        if (visible) {
+            g.setColor(Color.GRAY);
+            g.fillRect(this.getX(), this.getY(), this.getAncho(), this.getAncho());
+            g.setColor(Color.BLACK);
+            g.drawString(de, this.getX() + 25, this.getY() + 25);
+            g.drawString(para, this.getX() + 25, this.getY() + 70);
 
-        if (this.getSeleccionada()) {
-            g.setColor(Color.RED);
-            g.drawRect(this.getX() + 7, this.getY() + 7, this.getAncho() - 20, this.getAncho() - 20);
+            if (this.getSeleccionada()) {
+                g.setColor(Color.RED);
+                g.drawRect(this.getX() + 7, this.getY() + 7, this.getAncho() - 20, this.getAncho() - 20);
+            }
         }
     }
 
