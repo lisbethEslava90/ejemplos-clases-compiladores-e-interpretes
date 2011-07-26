@@ -1,5 +1,6 @@
 package modelo;
 
+import com.sun.corba.se.pept.broker.Broker;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
@@ -32,8 +33,8 @@ public class T extends Figura {
 
     public boolean dentroFigura(Point p) {
         int difX = Math.abs(p.x - (posicion.x + (ancho / 2)));
-        int difY = Math.abs(p.y - (posicion.y + (ancho / 2)));
-        return ((difX < ancho / 2) && (difY < ancho / 2));
+        int difY = p.y - (posicion.y);
+        return ((difX < ancho / 2) && (difY > 0 && difY < 80));
     }
 
     public void dibujar(Graphics g) {
@@ -73,16 +74,7 @@ public class T extends Figura {
             p.y -= 80;
             this.setPosicion(p);
         }
-        if (intersectada instanceof programa
-                && this.vec[3] == null
-                && intersectada.vec[2] == null
-                && this.de.equals(((programa) intersectada).para)) //programa
-        {
-            Point p = new Point(intersectada.posicion);
-            p.x += 60;
-            p.y += 60;
-            this.setPosicion(p);
-        }
+
         if (intersectada instanceof T
                 && this.vec[1] == null
                 && intersectada.vec[2] == null
@@ -101,13 +93,23 @@ public class T extends Figura {
             p.x += 120;
             p.y -= 40;
             this.setPosicion(p);
+        }
+        if (intersectada instanceof programa
+                && this.vec[3] == null
+                && intersectada.vec[2] == null
+                && this.para.equals(((programa) intersectada).para)) //programa lado izq
+        {
+            Point p = new Point(intersectada.posicion);
+            p.x -= 180;
+            p.y += 60;
+            this.setPosicion(p);
         } else if (intersectada instanceof programa
                 && this.vec[2] == null
                 && intersectada.vec[3] == null
                 && this.de.equals(((programa) intersectada).para)) //programa
         {
             Point p = new Point(intersectada.posicion);
-            p.x -= 190;
+            p.x += 60;
             p.y += 60;
             this.setPosicion(p);
         }
@@ -115,19 +117,10 @@ public class T extends Figura {
 
     @Override
     public void unir(Figura intersectada) {
-        if (intersectada instanceof programa
-                && this.vec[3] == null
-                && intersectada.vec[2] == null
-                && this.de.equals(((programa) intersectada).para)) //programa
-        {
-            this.vec[3] = intersectada;
-            intersectada.vec[2] = this;
-        }
         if (intersectada instanceof interprete
                 && this.vec[1] == null
                 && intersectada.vec[0] == null
-                && this.en.equals(((interprete) intersectada).de)) //maquina
-        {
+                && this.en.equals(((interprete) intersectada).de)) {
             this.vec[1] = intersectada;
             intersectada.vec[0] = this;
         }
@@ -153,6 +146,15 @@ public class T extends Figura {
         {
             this.vec[1] = intersectada;
             intersectada.vec[3] = this;
+        }
+        if (intersectada instanceof programa
+                && this.vec[3] == null
+                && intersectada.vec[2] == null
+                && this.para.equals(((programa) intersectada).para)) //programa
+        {
+            this.vec[3] = intersectada;
+            intersectada.vec[2] = this;
+
         } else if (intersectada instanceof programa
                 && this.vec[2] == null
                 && intersectada.vec[3] == null

@@ -142,6 +142,7 @@ public class Vista extends JPanel{
 		{
 			controlador.eVmousePressed(ev);
 		}
+                
 	}
 	
 	public void eVmouseDragged(MouseEvent ev) {
