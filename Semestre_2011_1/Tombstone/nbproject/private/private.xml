@@ -3,7 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1">
         <file>
             <url>src/modelo/T.java</url>
-            <line>32</line>
+            <line>33</line>
         </file>
     </editor-bookmarks>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/1">
+        <file>file:/home/jeison/Escritorio/Tombstone/src/modelo/T.java</file>
+        <file>file:/home/jeison/Escritorio/Tombstone/src/modelo/programa.java</file>
+        <file>file:/home/jeison/Escritorio/Tombstone/src/modelo/maquina.java</file>
+        <file>file:/home/jeison/Escritorio/Tombstone/src/controlador/Controlador.java</file>
+        <file>file:/home/jeison/Escritorio/Tombstone/src/Figuras.java</file>
+        <file>file:/home/jeison/Escritorio/Tombstone/src/vista/Vista.java</file>
+        <file>file:/home/jeison/Escritorio/Tombstone/src/modelo/Figura.java</file>
+        <file>file:/home/jeison/Escritorio/Tombstone/src/modelo/interprete.java</file>
+    </open-files>
 </project-private>
